@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Project</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+      
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .patient-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .patient-card {
+        width: calc(30% - 10px);
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      
+      .patient-card h2 {
+        margin-top: 0;
+        font-size: 20px;
+      }
+      
+      .patient-card p {
+        margin: 0;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form action="" method="get">
+        <input type="text" name="name" id="">
+        <input type="submit" value="find">
+      </form>
+      <% if (project == null) {%>
+        <h5>Project not found</h5>
+        <% }else {%>
+          <h1>Project (<%= project.name%>)</h1>
+
+      <ul class="patient-list">
+        <% for(var i = 0; i < project.patients.length; i++) { %>
+          <li class="patient-card">
+            <h2><%= project.patients[i].name %></h2>
+            <p><strong>Год рождения:</strong> <%= project.patients[i].birthday %></p>
+            <p><strong>A/K №:</strong> <%= project.patients[i].card %></p>
+            <p><strong>Схема:</strong> <%= project.patients[i].scheme %></p>
+            <p><strong>Диагноз:</strong> <%= project.patients[i].diagnosis %></p>
+            <ul>
+              <% for(var j = 0; j < project.patients[i].drugs.length; j++) { %>
+                <li><span style="color: #f44f52"><%= drugNames[project.patients[i].drugs[j].id].trim() %>: </span> <%= project.patients[i].drugs[j].amount %></li>
+              <% } %>
+            </ul>
+          </li>
+        <% } %>
+        <% } %>
+      </ul>
+    </div>
+  </body>
+</html>
