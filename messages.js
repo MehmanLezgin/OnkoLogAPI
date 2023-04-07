@@ -62,14 +62,22 @@ const messages = {
         project_access_denied: 'Отказано в доступе к проекту',
         project_delete_succes: 'Проект успешно удалён',
         project_delete_failed: 'Не удалось удалить проект',
+        project_share_success: 'Правила доступа к проекту успешно сохранены!',
 
         project_name_taken: 'Проект с таким названием уже существует',
         project_name_len_err: `Длина названия проекта должна быть от ${settings.PROJECT_NAME_MIN_LEN} до ${settings.PROJECT_NAME_MAX_LEN} символов`,
+        project_name_format_err: 'Название проекта может содержать только буквы, цифры и _.',
         project_create_failed: 'Не удалось создать проект',
         project_create_success: 'Проект успешно создан',
         project_rename_success: 'Проект успешно переименован',
 
-        project_share_success: 'Правила доступа к проекту успешно сохранены!'
+        patient_not_found: 'Пациент не найден',
+        patient_delete_success: 'Пациент успешно удалён',
+        patient_add_success: 'Пациент успешно добавлен',
+        patient_edit_success: 'Пациент успешно изменен',
+        patient_already_exist: 'Пациент с таким ФИО уже существует',
+
+        err_check_entered_data: 'Ошибка. Проверьте введенные данные'
     }
 }
 module.exports = messages;

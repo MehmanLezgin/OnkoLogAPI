@@ -11,7 +11,7 @@ module.exports = function(req, res, next) {
     try {
         const msgLang = msg[getlang(req.params.lang)];
 
-        const projectId = req.params.id;
+        const projectId = req.params.projectId;
         const userId = new mongoose.Types.ObjectId(req.user.id);
 
         Project.findById(projectId).then((project) => {

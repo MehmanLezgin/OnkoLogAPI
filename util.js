@@ -17,8 +17,23 @@ const decodeReqToken = (req) => {
     const decodedData = jwt.verify(token, process.env.SECRET);
     return decodedData;
 }
+
+const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+const isValidName = (name) => {
+    const nameRegex = /^[\p{L}\s'-]+$/u;
+    return nameRegex.test(name);
+}
+
+const isValidUsername = (username) => {
+    const regex = /^[A-Za-z0-9_]+$/;
+    return regex.test(username);
+}
                     
 
 module.exports = {
-    getlang, drugNames, checkLength
+    getlang, drugNames, checkLength, decodeReqToken, isValidEmail, isValidName, isValidUsername
 }

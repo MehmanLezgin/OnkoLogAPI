@@ -4,24 +4,9 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const msg = require('../messages');
 const settings = require('../settings');
-const {getlang, checkLength} = require('../util');
+const {getlang, checkLength, isValidEmail, isValidName, isValidUsername} = require('../util');
 // import { lang } from './util';
 // const lang = (req) => req.query.lang || settings.DEF_LANG;
-
-const isValidEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-}
-
-const isValidName = (name) => {
-    const nameRegex = /^[\p{L}\s'-]+$/u;
-    return nameRegex.test(name);
-}
-
-function isValidUsername(username) {
-    const regex = /^[A-Za-z0-9_]+$/;
-    return regex.test(username);
-}  
 
 const validResult = (body, lang) => {
     const { username, name, email, password } = body;
