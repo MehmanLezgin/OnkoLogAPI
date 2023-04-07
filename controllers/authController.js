@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const msg = require('../messages');
 const settings = require('../settings');
-const {getlang} = require('../util');
+const {getlang, checkLength} = require('../util');
 // import { lang } from './util';
 // const lang = (req) => req.query.lang || settings.DEF_LANG;
 
@@ -23,10 +23,8 @@ function isValidUsername(username) {
     return regex.test(username);
 }  
 
-const checkLength = (n, min, max) => n >= min && n <= max;
-
-const validResult = (body) => {
-    const { username, name, email, password, lang } = body;
+const validResult = (body, lang) => {
+    const { username, name, email, password } = body;
   
     const errors = [];
     const msgLang = msg[getlang(lang)];
@@ -70,11 +68,11 @@ const generateAccessToken = (id, username) => {
 class AuthController {
     async signin(req, res) {
         try {
-            let { username, password, lang } = req.body;
+            let { username, password } = req.body;
             username = username?.trim();
             password = password?.trim();
 
-            const msgLang = msg[getlang(lang)];
+            const msgLang = msg[getlang(req.params.lang)];
 
             if (!username?.length || !password?.length)
                 return res.status(400).send({ error: msgLang.sign_in_empty_err })
@@ -108,22 +106,21 @@ class AuthController {
 
     async signup(req, res) {
         try {
-            const { username, name, email, password, lang } = req.body;
+            const { username, name, email, password } = req.body;
 
             req.body.username = username?.trim();
             req.body.name = name?.trim();
             req.body.email = email?.trim();
             req.body.password = password?.trim();
-            req.body.lang = lang?.trim();
 
-            const errors = validResult(req.body);
+            const errors = validResult(req.body, req.params.lang);
 
             if (errors.length) {
                 return res.status(400).send({ errors })
             }
             
             
-            const msgLang = msg[getlang(lang)];
+            const msgLang = msg[getlang(req.params.lang)];
 
             let user = null;
 
@@ -161,7 +158,21 @@ class AuthController {
             res.status(200).send(users);
         } catch (e) {
             console.log(e);
-            res.status(300).end();
+            res.status(500).end();
+        }
+    }
+    
+    async getUsernameById(req, res) {
+        try {
+            console.log(req.query);
+            User.findById(req.query.id).then((user) => {
+                console.log(user);
+                if (!user) return res.status(404).send({error: getlang(req.params.lang).user_not_found});
+                res.status(200).send(user.username);
+            });
+        } catch (e) {
+            console.log(e);
+            res.status(500).end();
         }
     }
 

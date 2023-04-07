@@ -12,6 +12,7 @@ const authController = require('./controllers/authController');
 // const loginMiddleware = require('./middlewares/authMiddleware');
 const authRouter = require('./routers/authRouter');
 const dataRouter = require('./routers/dataRouter');
+const projectRouter = require('./routers/projectRouter');
 
 const Project = require('./models/project');
 const User = require('./models/user');
@@ -25,9 +26,30 @@ app.use((err, req, res, next) => {
         next();
     }
 });
-  
-app.use('/api/auth', authRouter);
-app.use('/api/data', dataRouter);
+
+app.use('/:lang/api/auth', authRouter);
+app.use('/:lang/api/data', dataRouter);
+app.use('/:lang/api/project', projectRouter);
+
+// app.use('/add-projects', async (req, res) => {
+//     const fileDir = `C:/android/AndrOnk/Projects/2022/`;
+//     fs.readdir(fileDir, (err, files) => {
+//         files.forEach(file => {
+//             if (path.extname(file) != '.andronk') return;
+            
+//             andronkParser(`C:/android/AndrOnk/Projects/2022/${file}`)
+//                 .then((project) => {
+//                     console.log(project.name);
+//                     project.save()
+//                     .catch((err) => {
+//                         console.log(err); 
+//                     });
+//                 });
+
+//         });
+//         res.end();
+//     });
+// });
 
 const createPath = (fileDir) => path.resolve(__dirname, `${fileDir}`);
 
@@ -40,11 +62,15 @@ const start = async () => {
     try {
         mongoose
         .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-        .then((res) => console.log('Connected to DB!'))
+        .then((res) => {
+            console.log('Connected to DB!');
+        })
         .catch((err) => console.log(err));
         
         app.listen(process.env.PORT, 'localhost', (error) => error ? console.log(error) : console.log(`listening port ${process.env.PORT}`));
         app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+
+
     }catch (e) {
         console.log(e);
     }

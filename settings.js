@@ -6,7 +6,10 @@ const settings = {
     NAME_MAX_LEN:       32,
     PASSWORD_MIN_LEN:   8,
     PASSWORD_MAX_LEN:   16,
-    PASSWORD_EXPIRES_IN:'14 days'
+    PASSWORD_EXPIRES_IN:'14 days',
+
+    PROJECT_NAME_MIN_LEN:   3,
+    PROJECT_NAME_MAX_LEN:   32,
 };
 
 module.exports = settings;

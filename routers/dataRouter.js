@@ -4,6 +4,7 @@ const dataController = require('../controllers/dataController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const adminMiddleware = require('../middlewares/adminMiddleware');
 
-router.post('/drugnames', authMiddleware, dataController.drugnames)
+router.get('/drugnames', authMiddleware, dataController.drugnames)
+router.get('/myinfo', authMiddleware, dataController.myInfo)
 
 module.exports = router;

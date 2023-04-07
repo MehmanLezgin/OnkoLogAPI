@@ -25,9 +25,13 @@ const messages = {
         wrong_password: 'Wrong password',
         sign_in_empty_err: 'Please provide a username and password',
 
-        auth_required: 'Authorization required'
+        auth_required: 'Authorization required',
+
+        project_not_found: 'Project not found'
     },
     'ru': {
+        error_occured: 'Произошла ошибка',
+        server_error: 'Ошибка сервера',
         err404: '404 Страница не найдена',
         username_taken: 'Данное имя пользователя уже занято',
         email_taken: 'Данный email уже занят',
@@ -52,7 +56,20 @@ const messages = {
         wrong_password: 'Неверный пароль',
         sign_in_empty_err: 'Пожалуйста, укажите имя пользователя и пароль',
 
-        auth_required: 'Требуется авторизация'
+        auth_required: 'Требуется авторизация',
+
+        project_not_found: 'Проект не найден',
+        project_access_denied: 'Отказано в доступе к проекту',
+        project_delete_succes: 'Проект успешно удалён',
+        project_delete_failed: 'Не удалось удалить проект',
+
+        project_name_taken: 'Проект с таким названием уже существует',
+        project_name_len_err: `Длина названия проекта должна быть от ${settings.PROJECT_NAME_MIN_LEN} до ${settings.PROJECT_NAME_MAX_LEN} символов`,
+        project_create_failed: 'Не удалось создать проект',
+        project_create_success: 'Проект успешно создан',
+        project_rename_success: 'Проект успешно переименован',
+
+        project_share_success: 'Правила доступа к проекту успешно сохранены!'
     }
 }
 module.exports = messages;
