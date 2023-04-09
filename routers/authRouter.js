@@ -4,10 +4,10 @@ const authController = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const adminMiddleware = require('../middlewares/adminMiddleware');
 
-router.post('/signin', authController.signin)
-router.post('/signup', authMiddleware, adminMiddleware, authController.signup) // admin creates accounts
-router.post('/logout', authController.logout)
-router.get('/users', authMiddleware, adminMiddleware, authController.getUsers)
+router.post('/signin', authController.signin);
+router.post('/signup', authMiddleware, adminMiddleware, authController.signup); // admin creates accounts
+router.post('/logout', authController.logout);
+router.get('/users', authMiddleware, adminMiddleware, authController.getUsers);
 // router.get('/username/:id', authMiddleware, adminMiddleware, authController.getUsernameById)
 
 module.exports = router;

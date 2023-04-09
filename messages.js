@@ -58,6 +58,7 @@ const messages = {
         sign_in_empty_err: 'Please provide a username and password',
 
         auth_required: 'Authorization required',
+        token_expired: 'Session ended. Authorization required',
 
         project_not_found: 'Project not found',
         project_access_denied: 'Project access denied',
@@ -114,6 +115,7 @@ const messages = {
         sign_in_empty_err: 'Пожалуйста, укажите имя пользователя и пароль',
 
         auth_required: 'Требуется авторизация',
+        token_expired: 'Сессия завершена. Требуется авторизация',
 
         project_not_found: 'Проект не найден',
         project_access_denied: 'Отказано в доступе к проекту',
