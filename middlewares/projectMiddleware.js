@@ -1,6 +1,5 @@
-const User = require('../models/user');
 const Project = require('../models/project');
-const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 const mongoose = require('mongoose');
 const msg = require('../messages');
 const {getlang} = require('../util');
@@ -11,7 +10,16 @@ module.exports = function(req, res, next) {
     try {
         const msgLang = msg[getlang(req.params.lang)];
 
-        const projectId = req.params.projectId;
+        const projectId = function() {
+            try {
+                return new mongoose.Types.ObjectId(req.params.projectId);
+            } catch (e1) {
+                res.status(404).send({ error: msgLang.project_not_found });
+                return null;
+            }
+        }();
+        
+        if (!projectId) return;
         const userId = new mongoose.Types.ObjectId(req.user.id);
 
         Project.findById(projectId).then((project) => {
@@ -24,7 +32,13 @@ module.exports = function(req, res, next) {
                 req.isOwnProject = false;
                 return next();
             }
-            return res.status(403).send({ error: msgLang.project_access_denied });
+            User.findById(userId).then(user => {
+                if (user.isAdmin) return next();
+                return res.status(403).send({ error: msgLang.project_access_denied });
+            })
+        }).catch(err => {
+            console.log(err);
+            res.status(403).send({error: msgLang.project_not_found});
         });
     } catch (e) {
         console.log(e);

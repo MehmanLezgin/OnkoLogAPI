@@ -12,13 +12,15 @@ const patientSchema = new Schema({
     card: { type: Number, required: false, default: 0 },
     scheme: { type: String, required: false, default: "" },
     diagnosis: { type: String, required: false, default: "" },
-    drugs: [{ type: usedDrugSchema, required: false }]
+    drugs: [{ type: usedDrugSchema, required: false }],
+    version: { type: Number, required: true, default: 0 }
 });
 
-const drugSchema = new Schema({
+const Drug = new Schema({
     id: { type: Number, required: true },
-    remainder: { type: Number, required: true },
-    income: { type: Number, required: true }
+    remainder: { type: Number, required: true, default: 0 },
+    income: { type: Number, required: true, default: 0 },
+    version: { type: Number, required: true, default: 0 }
 });
 
 const settingsSchema = new Schema({
@@ -28,13 +30,9 @@ const settingsSchema = new Schema({
 const projectSchema = new Schema({
     name: { type: String, required: true },
     patients: [{ type: patientSchema, required: true }],
-    drugs: [{ type: drugSchema, required: true }],
+    drugs: [{ type: Drug, required: true }],
     creator: { type: Schema.Types.ObjectId, ref: 'User', required: false },
-    // users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     settings: { type: settingsSchema, required: true, default: { shared_to: [] } }
-    // createdAt: { type: Date, default: Date.now, default: 0 },
-    // editedAt: { type: Date, default: Date.now, default: 0 },
-    // version: { type: Number, required: false }
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'editedAt' } });
 
 const Project = mongoose.model('Project', projectSchema);

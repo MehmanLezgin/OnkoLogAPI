@@ -23,17 +23,19 @@ const parse = (data) => {
                 const drugObj = patient.drugs[i];
                 drugs.push({ id: drugObj.id, amount: drugObj.amount });
             }
-
+            const creatorId = new mongoose.Types.ObjectId('643242df9bc66ff25a2e927e');
             project.patients.push({
+                _id: new mongoose.Types.ObjectId(),
                 name: patient.name,
                 birthday: patient.birthday,
                 card: patient.card,
                 scheme: patient.scheme,
-                dignosis: patient.dignosis,
+                diagnosis: patient.diagnosis,
                 drugs: drugs,
                 settings: {
                     shared_to: []
-                }
+                },
+                creator: creatorId
             })
         }
     }

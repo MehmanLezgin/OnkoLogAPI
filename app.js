@@ -28,35 +28,26 @@ app.use((err, req, res, next) => {
 });
 
 app.use('/:lang/api/auth', authRouter);
-app.use('/:lang/api/data', dataRouter);
 app.use('/:lang/api/project', projectRouter);
+app.use('/:lang/api/data', dataRouter);
 
-// app.use('/add-projects', async (req, res) => {
-//     const fileDir = `C:/android/AndrOnk/Projects/2022/`;
-//     fs.readdir(fileDir, (err, files) => {
-//         files.forEach(file => {
-//             if (path.extname(file) != '.andronk') return;
-            
-//             andronkParser(`C:/android/AndrOnk/Projects/2022/${file}`)
-//                 .then((project) => {
-//                     console.log(project.name);
-//                     project.save()
-//                     .catch((err) => {
-//                         console.log(err); 
-//                     });
-//                 });
+const parseAndronksss = () => {
 
-//         });
-//         res.end();
-//     });
-// });
-
-const createPath = (fileDir) => path.resolve(__dirname, `${fileDir}`);
-
-// const drugNames = fs.readFileSync(createPath('assets/drugs_names.txt'), 'utf-8')
-//                     .replace(/\r/g, '')
-//                     .split('\n');
-
+    const fileDir = `C:/android/AndrOnk/Projects/Full/`;
+    fs.readdir(fileDir, (err, files) => {
+            files.forEach(file => {
+                if (path.extname(file) != '.andronk') return;
+    
+                andronkParser(`${fileDir}${file}`).then((project) => {
+                    console.log(project.name+' : DONE');
+                    project.save()
+                .catch((err) => {
+                    console.log(err); 
+                });
+            });
+        });
+    });
+};
 
 const start = async () => {
     try {
@@ -64,6 +55,7 @@ const start = async () => {
         .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
         .then((res) => {
             console.log('Connected to DB!');
+            // -----------parseAndronksss();
         })
         .catch((err) => console.log(err));
         
