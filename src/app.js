@@ -1,4 +1,6 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
+
 const mongoose = require('mongoose');
 const functions = require('firebase-functions');
 require('dotenv').config();
@@ -15,27 +17,14 @@ const projectRouter = require('./routers/projectRouter');
 const PORT = process.env.PORT;
 // const Project = require('./models/project');
 // const User = require('./models/user');
-
-/*
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCcN436ZU0ds1n2UvesuulrXETg3o9hyt0",
-  authDomain: "onkologweb.firebaseapp.com",
-  databaseURL: "https://onkologweb-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "onkologweb",
-  storageBucket: "onkologweb.appspot.com",
-  messagingSenderId: "1043363968676",
-  appId: "1:1043363968676:web:679208135a9fdd6edd9831"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-*/
+const limiter = rateLimit({
+    windowMs: 30 * 1000, 
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: {error: 'Please try again later'},
+});
+  
+// apply the rate limiter to all requests
+app.use(limiter);
 
 app.use(express.json());
 app.use((err, req, res, next) => {
