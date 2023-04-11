@@ -18,14 +18,12 @@ const PORT = process.env.PORT;
 // const Project = require('./models/project');
 // const User = require('./models/user');
 const limiter = rateLimit({
-    windowMs: 30 * 1000, 
-    max: 100, // limit each IP to 100 requests per windowMs
+    windowMs: 10 * 1000, 
+    max: 30, // limit each IP to 100 requests per windowMs
     message: {error: 'Please try again later'},
 });
   
-// apply the rate limiter to all requests
-app.use(limiter);
-
+app.use(limiter);   // apply the rate limiter to all requests
 app.use(express.json());
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
