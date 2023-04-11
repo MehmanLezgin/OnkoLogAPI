@@ -66,7 +66,7 @@ const start = async () => {
         })
         .catch((err) => console.log(err));
         
-        app.listen(PORT, 'localhost', (error) => error ? console.log(error) : console.log(`listening port ${PORT}`));
+        app.listen(PORT, (error) => error ? console.log(error) : console.log(`listening port ${PORT}`));
         app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
 

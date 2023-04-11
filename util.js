@@ -7,7 +7,7 @@ const path = require('path');
 const createPath = (fileDir) => path.resolve(__dirname, `${fileDir}`);
 const checkLength = (n, min, max) => n >= min && n <= max;
 
-const drugNames = fs.readFileSync(createPath('../assets/drugs_names.txt'), 'utf-8')
+const drugNames = fs.readFileSync(createPath('./assets/drugs_names.txt'), 'utf-8')
                     .replace(/\r/g, '')
                     .split('\n');
 
