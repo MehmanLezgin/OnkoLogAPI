@@ -19,11 +19,13 @@ router.put(         '/:projectId/rename',                       authMW, projectM
 router.get(         '/:projectId/patients',                     authMW, projectMW,  projectCont.getPatients);
 
 router.post(        '/:projectId/patient/',                     authMW, projectMW,  patientsCont.addPatient);
+router.get(         '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.getPatient);
 router.put(         '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.editPatient);
 router.delete(      '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.deletePatient);
 router.post(        '/:projectId/impat',                        authMW, projectMW,  patientsCont.importPatient);
 
-router.get(         '/:projectId/drugs',                        authMW, projectMW,  projectCont.getDrugs);
+router.get(         '/:projectId/drugs/',                       authMW, projectMW,  projectCont.getDrugs);
+router.get(         '/:projectId/drugs/:drugId',                authMW, projectMW,  projectCont.getDrug);
 router.post(        '/:projectId/drugs/imrem',                  authMW, projectMW,  projectCont.importRemainder);
 router.put(         '/:projectId/drugs/',                       authMW, projectMW,  projectCont.editDrug);
 /*
