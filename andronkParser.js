@@ -9,8 +9,8 @@ const parse = (data) => {
     const ObjectId = mongoose.Types.ObjectId;
     const project = new Project();
     project.drugs = projJson.drugs;
-    // project.createdAt = new Date(projJson.created);
-    // project.editedAt = new Date(projJson.edited);
+    project.createdAt = new Date(projJson.created);
+    project.editedAt = new Date(projJson.edited);
     project.creator = null;
 
     for (const id in projJson.patients) {

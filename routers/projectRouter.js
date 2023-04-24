@@ -23,6 +23,7 @@ router.get(         '/:projectId/patient/:patientId',           authMW, projectM
 router.put(         '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.editPatient);
 router.delete(      '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.deletePatient);
 router.post(        '/:projectId/impat',                        authMW, projectMW,  patientsCont.importPatient);
+// router.get(         '/:projectId/export-xlsx',                  authMW, projectMW,  patientsCont.exportPatientsXLSX);
 
 router.get(         '/:projectId/drugs/',                       authMW, projectMW,  projectCont.getDrugs);
 router.get(         '/:projectId/drugs/:drugId',                authMW, projectMW,  projectCont.getDrug);

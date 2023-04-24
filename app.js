@@ -9,6 +9,7 @@ const path = require('path');
 const fs = require('fs');
 const andronkParser = require('./andronkParser');
 const app = express();
+const util = require('./util');
 // const loginMiddleware = require('./middlewares/authMiddleware');
 const authRouter = require('./routers/authRouter');
 const dataRouter = require('./routers/dataRouter');
@@ -36,7 +37,7 @@ app.use((err, req, res, next) => {
 app.use('/:lang/api/auth', authRouter);
 app.use('/:lang/api/project', projectRouter);
 app.use('/:lang/api/data', dataRouter);
-app.use((req, res) => res.status(404).send({ error: '404 Not found' }) );
+app.use((req, res) => res.status(424).send({ error: '404 Not found' }) );
 
 const parseAndronksss = () => {
 
@@ -63,6 +64,7 @@ const start = async () => {
         .then((res) => {
             console.log('Connected to DB!');
             // -----------parseAndronksss();
+            // fixProjectDates();
         })
         .catch((err) => console.log(err));
         
@@ -78,3 +80,15 @@ const start = async () => {
 start();
 
 exports.app = functions.https.onRequest(app);
+
+fs.readFile('C:/android/AndrOnk/Projects/Full/Aprel2023.andronk', (err, data) => {
+    if (err) return console.log(err);
+    
+    const today = new Date();
+    const monthIdx = today.getMonth();
+    const year = today.getFullYear();
+    util.exportPatientsXLSXAsync(JSON.parse(data.toString()).patients, true, true, monthIdx, year)
+        .then(wb =>
+            wb.write('aaa.xlsx')
+        )
+});

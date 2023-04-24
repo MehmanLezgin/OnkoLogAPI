@@ -93,7 +93,7 @@ class AuthController {
         try {
             const { username, name, email, password } = req.body;
 
-            req.body.username = username?.trim();
+            req.body.username = username?.trim().toLowerCase();
             req.body.name = name?.trim();
             req.body.email = email?.trim();
             req.body.password = password?.trim();
@@ -103,7 +103,6 @@ class AuthController {
             if (errors.length) {
                 return res.status(400).send({ errors })
             }
-            
             
             const msgLang = msg[getlang(req.params.lang)];
 

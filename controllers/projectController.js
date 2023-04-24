@@ -1,11 +1,10 @@
 const Project = require('../models/project');
 const User = require('../models/user');
 const msg = require('../messages')
-const { getlang, checkLength, isValidName, drugNames } = require('../util');
+const { getlang, checkLength, isValidName, drugNames, exportPatientsXLSXAsync } = require('../util');
 const settings = require('../settings');
 const mongoose = require('mongoose');
-// const { hash } = require('bcryptjs');
-
+const XLSX = require('excel4node');
 
 const toObjectIdSafe = (res, id, message, errCode=404) => {
     try {
@@ -679,6 +678,35 @@ class PatientsController {
                     return res.status(404).send({ error: msgLang.patient_not_found });
                 }
                 return res.status(200).send(patient);
+            });
+        } catch (e) {
+            console.error(e.message);
+            res.status(500).send({ error: msgLang.server_error });
+        }
+    }
+
+    async exportPatientsXLSX(req, res) {
+        const msgLang = msg[getlang(req.params.lang)];
+        try {
+            const projectId = new mongoose.Types.ObjectId(req.params.projectId);
+            Project.findById(projectId).then((project) => {
+                const fileName = req.query.name || `${project.name}`;
+                exportPatientsXLSXAsync(
+                    project.patients,
+                    true, true, req.query.month, req.query.year
+                ).then(workbook => {
+                    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                    res.set('Content-Disposition', 'attachment; filename=example.xlsx');
+                    workbook.write(`${fileName}.xlsx`, res);
+                    // res.end();
+                    // const buffer = XLSX.write(workbook, { type: 'buffer' });
+                    // res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                    // res.set('Content-Disposition', 'attachment; filename=example.xlsx');
+                    // res.send(buffer);
+                }).catch(err => {
+                    res.status(500).send({ error: msgLang.server_error });
+                    console.log(err);
+                });
             });
         } catch (e) {
             console.error(e.message);

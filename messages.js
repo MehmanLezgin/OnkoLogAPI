@@ -1,34 +1,7 @@
 const settings = require('./settings');
+const messages_lez = require('./messages_lez');
 
 const messages = {
-    /*'en': {
-        err404: '404 Page not found',
-        username_taken: 'This username already taken',
-        email_taken: 'This email is already in use',
-        name_err: 'Invalid name',
-        name_format_err: 'Name can only contain letters',
-        name_len_err: `Name length must be between ${settings.NAME_MIN_LEN} and ${settings.NAME_MAX_LEN} characters`,
-
-        username_err: 'Invalid Login',
-        username_len_err: `Username length must be between ${settings.USERNAME_MIN_LEN} and ${settings.USERNAME_MAX_LEN} characters`,
-        username_format_err: 'Username can only contain letters (A-Z, a-z), numbers (0-9) and underscores (_)',
-
-        email_err: 'Invalid Email',
-        email_format_err: 'Invalid Email format',
-        
-        password_len_err: `Password length must be between ${settings.PASSWORD_MIN_LEN} and ${settings.PASSWORD_MAX_LEN} characters`,
-        password_err: 'Invalid Password',
-
-        signup_err: 'Sign up error',
-
-        user_not_found: 'User not found',
-        wrong_password: 'Wrong password',
-        sign_in_empty_err: 'Please provide a username and password',
-
-        auth_required: 'Authorization required',
-
-        project_not_found: 'Project not found'
-    },*/
     'en': {
         error_occured: 'An error has occurred',
         server_error: 'Server error',
@@ -142,6 +115,7 @@ const messages = {
         remainder_import_success: 'Остаток успешно импортирован',
         import_same_project_err: 'Нельзя импортировать в тот же самый проект',
         edits_saved: 'Изменения сохранены'
-    }
+    },
+    'lez': messages_lez
 }
 module.exports = messages;

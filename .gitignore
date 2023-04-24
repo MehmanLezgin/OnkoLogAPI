@@ -3,4 +3,6 @@ node_modules
 .env
 app2
 app3
-user_data
+# user_data
+*.xls
+*.xlsx
