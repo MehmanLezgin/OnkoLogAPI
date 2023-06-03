@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
 app.use('/:lang/api/auth', authRouter);
 app.use('/:lang/api/project', projectRouter);
 app.use('/:lang/api/data', dataRouter);
-app.use((req, res) => res.status(424).send({ error: '404 Not found' }) );
+app.use((req, res) => res.status(404).send({ error: '404 Not found' }) );
 
 const parseAndronksss = () => {
 
