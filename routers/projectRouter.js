@@ -1,8 +1,8 @@
 const Router = require('express');
 const router = Router.Router({ mergeParams: true });
 const { ProjectController, PatientsController} = require('../controllers/projectController');
+
 const authMW = require('../middlewares/authMiddleware');
-// const adminMiddleware = require('../middlewares/adminMiddleware');
 const projectMW = require('../middlewares/projectMiddleware');
 const patientMW = require('../middlewares/patientMiddleware');
 
@@ -16,55 +16,18 @@ router.delete(      '/:projectId/:project_name',                authMW, projectM
 router.post(        '/create',                                  authMW,             projectCont.createProject)
 router.put(         '/:projectId/setshare',                     authMW, projectMW,  projectCont.setShareList);
 router.put(         '/:projectId/rename',                       authMW, projectMW,  projectCont.renameProject);
-router.get(         '/:projectId/patients',                     authMW, projectMW,  projectCont.getPatients);
 
 router.post(        '/:projectId/patient/',                     authMW, projectMW,  patientsCont.addPatient);
-router.get(         '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.getPatient);
-router.put(         '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.editPatient);
-router.delete(      '/:projectId/patient/:patientId',           authMW, projectMW,  patientMW, patientsCont.deletePatient);
+router.get(         '/:projectId/patients/',                    authMW, projectMW,  projectCont.getPatients);
+router.get(         '/:projectId/patients/:patientId',          authMW, projectMW,  patientMW, patientsCont.getPatient);
+router.put(         '/:projectId/patients/:patientId',          authMW, projectMW,  patientMW, patientsCont.editPatient);
+router.delete(      '/:projectId/patients/:patientId',          authMW, projectMW,  patientMW, patientsCont.deletePatient);
 router.post(        '/:projectId/impat',                        authMW, projectMW,  patientsCont.importPatient);
 // router.get(         '/:projectId/export-xlsx',                  authMW, projectMW,  patientsCont.exportPatientsXLSX);
 
 router.get(         '/:projectId/drugs/',                       authMW, projectMW,  projectCont.getDrugs);
 router.get(         '/:projectId/drugs/:drugId',                authMW, projectMW,  projectCont.getDrug);
 router.post(        '/:projectId/drugs/imrem',                  authMW, projectMW,  projectCont.importRemainder);
-router.put(         '/:projectId/drugs/',                       authMW, projectMW,  projectCont.editDrug);
-/*
-GET     /api/project/:projectId/my-projects                 - myProjectsInfo        // DONE | информация о моих проектах
-GET     /api/project/:projectId/shared-projects             - sharedProjectsInfo    // DONE | общая информация о проектах
-POST    /api/project/:projectId/                            - createProject         // DONE | создать проект
-GET     /api/project/:projectId/                            - getProject            // DONE | получить проект
-
-POST    /api/project/:projectId/patients/impat              - importPatient         // DONE | импортпациент
-GET     /api/project/:projectId/patients/                   - getPatients           // DONE | получитьпациентов
-POST    /api/project/:projectId/patients/                   - addPatient            // DONE | добавитьпациента
-PUT     /api/project/:projectId/patients/:patientId         - editPatient           // DONE | редактироватьПациент
-DELETE  /api/project/:projectId/patients/:patientId         - deletePatient         // DONE | удалитьпациента
-
-DELETE  /api/project/:projectId/patients/:projectId         - deleteProject         // DONE | удалитьПроект
-PUT     /api/project/:projectId/patients/:projectId         - renameProject         // DONE | переименоватьПроект
-PUT     /api/project/:projectId/patients/:projectId/share   - updateShareList       // DONE | updateShareList
-GET     /api/project/:projectId/drugs/                      - getDrugs              // DONE | получитьнаркотики
-PUT     /api/project/:projectId/drugs/                      - editDrug              // DONE | редактироватьнаркотик
-POST    /api/project/:projectId/drugs/imrem                 - importRemainder       // DONE | импортОстаток
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+router.put(         '/:projectId/drug/',                        authMW, projectMW,  projectCont.editDrug);
 
 module.exports = router;

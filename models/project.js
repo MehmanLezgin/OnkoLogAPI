@@ -6,13 +6,18 @@ const usedDrugSchema = new Schema({
     amount: { type: Number, required: true }
 });
 
+const therapySchema = new Schema({
+    date: { type: Number, required: false },
+    drugs: [{ type: usedDrugSchema, required: false }]
+})
+
 const patientSchema = new Schema({
     name: { type: String, required: true },
     birthday: { type: Number, required: false, default: 0 },
     card: { type: Number, required: false, default: 0 },
     scheme: { type: String, required: false, default: "" },
     diagnosis: { type: String, required: false, default: "" },
-    drugs: [{ type: usedDrugSchema, required: false }],
+    therapy: [{ type: therapySchema, required: false }],
     version: { type: Number, required: true, default: 0 }
 });
 

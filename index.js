@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
 });  
 
 app.use('/:lang/api/auth', authRouter);
-app.use('/:lang/api/project', projectRouter);
+app.use('/:lang/api/projects', projectRouter);
 app.use('/:lang/api/data', dataRouter);
 app.use((req, res) => res.status(404).send({ error: '404 Not found' }) );
 
@@ -63,15 +63,11 @@ const start = async () => {
         .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
         .then((res) => {
             console.log('Connected to DB!');
-            // -----------parseAndronksss();
-            // fixProjectDates();
         })
         .catch((err) => console.log(err));
         
         app.listen(PORT, (error) => error ? console.log(error) : console.log(`listening port ${PORT}`));
         app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
-
-
     }catch (e) {
         console.log(e);
     }

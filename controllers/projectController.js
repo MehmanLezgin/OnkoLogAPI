@@ -6,7 +6,7 @@ const settings = require('../settings');
 const mongoose = require('mongoose');
 const XLSX = require('excel4node');
 
-const toObjectIdSafe = (res, id, message, errCode=404) => {
+const toObjectIdSafe = (res, id, message, errCode = 404) => {
     try {
         return new mongoose.Types.ObjectId(id);
     } catch (e1) {
@@ -19,27 +19,36 @@ const toObjectIdSafe = (res, id, message, errCode=404) => {
 const calcUsedDrugs = (patients) => {
     let usedDrugs = [];
 
-    patients.forEach(patient => {
-        if (!patient.drugs || !Array.isArray(patient.drugs)) return;
+    for (let j = 0; j < patients.length; j++) {
+        const patient = patients[j];
+    
+        if (!Array.isArray(patient.therapy)) continue;
         
-        patient.drugs.forEach(drug => {
-            if (typeof drug.id != 'number' || typeof drug.amount != 'number')
-                return;
-
-            usedDrugs[drug.id] ??= 0;
-            usedDrugs[drug.id] += drug.amount;
-
-        });
-    });
+        for (let j = 0; j < patient.therapy.length; j++) {
+            const therapyItem = patient.therapy[j];
+            
+            if (!Array.isArray(therapyItem.drugs)) continue;
+            
+            for (let k = 0; k < therapyItem.drugs.length; k++) {
+                const drug = therapyItem.drugs[k];
+                
+                if (typeof drug.id != 'number' || typeof drug.amount != 'number')
+                   return;
+                
+                usedDrugs[drug.id] ??= 0;
+                usedDrugs[drug.id] += drug.amount;
+            }
+        }
+    }
     return usedDrugs;
 };
 
 const validDrug = (req, res) => {
     const { id, remainder, income } = req.body;
-    
+
     const msgLang = msg[getlang(req.params.lang)];
-    
-    const error = {fields:[]};
+
+    const error = { fields: [] };
 
     if (typeof id !== 'number' || id < 0 || id >= drugNames.length || id % 1 !== 0) {
         error.fields.push('id');
@@ -83,25 +92,25 @@ class ProjectController {
     async myProjectsInfo(req, res) {
         try {
             const projects = await Project.find({ creator: req.user.id });
-        
+
             const projectInfoList = [];
-        
+
             for (const project of projects) {
                 // Extract the _id values from shared_to field
                 const sharedToIds = project.settings.shared_to;
-        
+
                 // Find the user objects for each shared_to _id
                 const sharedToUsers = await User.find(
                     { _id: { $in: sharedToIds } },
                     { _id: 1, username: 1 }
                 );
-        
+
                 // Create a list of objects containing _id and username fields for each user
                 const sharedToUsernames = sharedToUsers.map(user => ({
                     _id: user._id,
                     username: user.username
                 }));
-        
+
                 // Add the sharedToUsernames list to the projectNames object
                 projectInfoList.push({
                     name: project.name,
@@ -112,13 +121,13 @@ class ProjectController {
                     editedAt: project.editedAt
                 });
             }
-        
+
             res.status(200).send(projectInfoList);
         } catch (err) {
             console.error(err.message);
             res.status(500).send({ error: msgLang.server_error });
         }
-      }
+    }
 
     /*async sharedProjectsInfo(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
@@ -146,29 +155,29 @@ class ProjectController {
         try {
             const userId = new mongoose.Types.ObjectId(req.user.id);
             const projects = await Project.find({ 'settings.shared_to': { $elemMatch: { $eq: userId } } });
-            
+
             const projectInfoList = [];
             for (const project of projects) {
                 const creator = await User.findById(project.creator);
                 projectInfoList.push({
-                _id: project._id,
-                name: project.name,
-                patientsAmount: project.patients.length,
-                creator: {
-                    _id: creator?._id,
-                    username: creator?.username
-                },
-                createdAt: project.createdAt,
-                editedAt: project.editedAt
+                    _id: project._id,
+                    name: project.name,
+                    patientsAmount: project.patients.length,
+                    creator: {
+                        _id: creator?._id,
+                        username: creator?.username
+                    },
+                    createdAt: project.createdAt,
+                    editedAt: project.editedAt
                 });
             }
             res.status(200).send(projectInfoList);
         } catch (err) {
             console.error(err);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
-      
+
 
     async getProject(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
@@ -180,7 +189,7 @@ class ProjectController {
             });
         } catch (e) {
             console.error(err.message);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -194,36 +203,36 @@ class ProjectController {
             });
         } catch (e) {
             console.error(err.message);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
     async getDrug(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
         const drugId = parseInt(req.params.drugId);
-        
+
         // Check if drugId is valid
         if (drugId < 0 || drugId >= drugNames.length) {
-          return res.status(400).send({ error: msgLang.err_check_entered_data });
+            return res.status(400).send({ error: msgLang.err_check_entered_data });
         }
-      
+
         try {
-          const projectId = new mongoose.Types.ObjectId(req.params.projectId);
-          const project = await Project.findById(projectId);
-      
-          // Check if project has the drug with the given id
-          const drug = project.drugs.find(d => d.id === drugId);
-          if (!drug) {
-            return res.status(200).send({ id: drugId, income: 0, remainder: 0})
-            // return res.status(404).send({ error: msgLang.drug_not_found });
-          }
-      
-          return res.status(200).send(drug);
+            const projectId = new mongoose.Types.ObjectId(req.params.projectId);
+            const project = await Project.findById(projectId);
+
+            // Check if project has the drug with the given id
+            const drug = project.drugs.find(d => d.id === drugId);
+            if (!drug) {
+                return res.status(200).send({ id: drugId, income: 0, remainder: 0 })
+                // return res.status(404).send({ error: msgLang.drug_not_found });
+            }
+
+            return res.status(200).send(drug);
         } catch (e) {
-          console.error(e);
-          res.status(500).send({ error: msgLang.server_error });
+            console.error(e);
+            res.status(500).send({ error: msgLang.server_error });
         }
-    } 
+    }
 
     async getPatients(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
@@ -235,7 +244,7 @@ class ProjectController {
             });
         } catch (e) {
             console.error(err.message);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -247,10 +256,10 @@ class ProjectController {
             Project.findById(projectId).then((project) => {
                 if (!new mongoose.Types.ObjectId(req.user.id).equals(project?.creator))
                     return res.status(403).send({ error: msgLang.project_access_denied });
-                    
+
                 if (projectName != project.name)
                     return res.status(422).send({ error: msgLang.project_delete_failed });
-                    
+
                 Project.findOneAndDelete(projectId).then((project, err) => {
 
                     return res.status(200).send({ message: msgLang.project_delete_success });
@@ -260,7 +269,7 @@ class ProjectController {
             })
         } catch (e) {
             console.error(err.message);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -270,10 +279,10 @@ class ProjectController {
             const userId = new mongoose.Types.ObjectId(req.user.id);
             const msgLang = msg[getlang(req.params.lang)];
 
-            Project.findOne({name: projectName, creator: userId}).then((project) => {
+            Project.findOne({ name: projectName, creator: userId }).then((project) => {
                 if (project)
                     return res.status(409).send({ error: msgLang.project_name_taken })
-                                        
+
                 if (!checkLength(projectName?.length, settings.PROJECT_NAME_MIN_LEN, settings.PROJECT_NAME_MAX_LEN))
                     return res.status(400).send({ error: msgLang.project_name_len_err })
 
@@ -283,14 +292,14 @@ class ProjectController {
                     name: projectName,
                     creator: userId
                 }).save().then((project, err) => {
-                    res.status(201).send({ message: msgLang.project_create_success, project});
+                    res.status(201).send({ message: msgLang.project_create_success, project });
                 }).catch(err => {
                     return res.status(500).send({ error: msgLang.project_create_failed });
                 });
             })
         } catch (e) {
             console.error(err.message);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -300,26 +309,26 @@ class ProjectController {
         const userIds = users.map(user => user._id);
         return userIds;
     }
-    
+
     async setShareList(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
         try {
             const projectId = new mongoose.Types.ObjectId(req.params.projectId);
             const shareUsernames = req.body.users;
-            
+
             const userId = new mongoose.Types.ObjectId(req.user.id);
 
             const users = await User.find({ username: { $in: shareUsernames } });
             const shareUserIds = users.map(user => user._id);
             const updatedProject = await Project.findByIdAndUpdate(projectId, { 'settings.shared_to': shareUserIds }, { new: true });
-            
+
             res.status(200).send({ message: msgLang.project_share_success });
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
-    
+
     async renameProject(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
         try {
@@ -330,10 +339,10 @@ class ProjectController {
             const projectId = new mongoose.Types.ObjectId(req.params.projectId);
             const userId = new mongoose.Types.ObjectId(req.user.id);
 
-            Project.findOne({name: projectNewName, creator: userId}).then((project) => {
+            Project.findOne({ name: projectNewName, creator: userId }).then((project) => {
                 if (project && !projectId.equals(project._id))
                     return res.status(409).send({ error: msgLang.project_name_taken })
-                                        
+
                 if (!checkLength(projectNewName?.length, settings.PROJECT_NAME_MIN_LEN, settings.PROJECT_NAME_MAX_LEN))
                     return res.status(400).send({ error: msgLang.project_name_len_err })
 
@@ -346,33 +355,33 @@ class ProjectController {
                     });
                 });
             });
-            
+
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
-    
+
     async importRemainder(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
 
         try {
             const userId = new mongoose.Types.ObjectId(req.user.id);
-            
-            const projectId = toObjectIdSafe(res, req.params.projectId, msgLang.project_not_found+' (i)');
-            const ex_projectId = toObjectIdSafe(res, req.params.projectId, msgLang.project_not_found+' (e)');
+
+            const projectId = toObjectIdSafe(res, req.params.projectId, msgLang.project_not_found + ' (i)');
+            const ex_projectId = toObjectIdSafe(res, req.params.projectId, msgLang.project_not_found + ' (e)');
             if (!projectId || !ex_projectId) return;
-            
+
             if (ex_projectId.equals(projectId))
                 return res.status(403).send({ error: msgLang.import_same_project_err });
-            
+
             Project.findById(ex_projectId).then(ex_project => {
                 if (!ex_project) return res.status(404).send({ error: msgLang.project_not_found })
-                
+
                 if (!ex_project.creator?.equals(userId) && !ex_project.settings.shared_to?.includes(userId))
                     return res.status(403).send({ error: msgLang.project_access_denied });
-                
+
                 const usedDrugsAmount = calcUsedDrugs(ex_project.patients);
                 const drugs = ex_project.drugs;
 
@@ -383,31 +392,31 @@ class ProjectController {
 
                         const remainder = drug_ex ? drug_ex.remainder : 0;
                         const income = drug_ex ? drug_ex.income : 0;
-                        
-                        const newRemainder = remainder + income - (usedDrugsAmount[id]??0);
-                        
+
+                        const newRemainder = remainder + income - (usedDrugsAmount[id] ?? 0);
+
                         if (index_im != -1) {
                             im_project.drugs[index_im].remainder = newRemainder;
-                        }else {
+                        } else {
                             im_project.drugs.push({ id, remainder: newRemainder, income: 0 });
                         }
                     }
                     im_project.save().then(() => {
-                        res.status(200).send({ message: msgLang.remainder_import_success, project: im_project});
+                        res.status(200).send({ message: msgLang.remainder_import_success, project: im_project });
                     })
                 }).catch(err => {
                     console.log(err);
-                    res.status(403).send({error: msgLang.project_not_found});
+                    res.status(403).send({ error: msgLang.project_not_found });
                 });
-            
+
             }).catch(err => {
                 console.log(err);
-                res.status(403).send({error: msgLang.project_not_found});
+                res.status(403).send({ error: msgLang.project_not_found });
             });
-        
+
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -432,29 +441,29 @@ class ProjectController {
                 project.drugs[index].income = income;
 
                 project.save().then(() => {
-                    res.status(200).send({ message: msgLang.edits_saved, project: project});
+                    res.status(200).send({ message: msgLang.edits_saved, project: project });
                 })
             }).catch(err => {
                 console.log(err);
-                res.status(403).send({error: msgLang.project_not_found});
+                res.status(403).send({ error: msgLang.project_not_found });
             });
-        
+
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 }
 
 
-const validPatientInfo = (req, res) => {
-    const { name, birthday, card, scheme, diagnosis, drugs } = req.body;
-    
-    const msgLang = msg[getlang(req.params.lang)];
-    
-    const error = {fields:[]};
+const validPatientInfo = (req, res, nameRequired = true) => {
+    const { name, birthday, card, scheme, diagnosis, therapy } = req.body;
 
-    if (!name || typeof name !== 'string' || name.length < 3 || name.length > 100 || !isValidName(name)) {
+    const msgLang = msg[getlang(req.params.lang)];
+
+    const error = { fields: [] };
+
+    if (nameRequired && (!name || typeof name !== 'string' || name.length < 3 || name.length > 100 || !isValidName(name))) {
         error.fields.push('name');
     }
 
@@ -474,18 +483,44 @@ const validPatientInfo = (req, res) => {
         error.fields.push('diagnosis');
     }
 
-    if (drugs != undefined) {
-        if (!Array.isArray(drugs)) {
-            error.fields.push('drugs');
-        } else {
-            drugs.every((drug, index) => {
-                if (typeof drug.id !== 'number') {
-                    error.fields.push(`drugs:${index}:id`);
+    if (therapy != undefined) {
+        if (!Array.isArray(therapy))
+            error.fields.push('therapy');
+        else if (therapy.length > 50)
+            error.fields.push('therapy.length');
+        else {
+            for (let i = 0; i < therapy.length; i++) {
+                const therapyItem = therapy[i];
+
+                if (typeof therapyItem != 'object') {
+                    error.fields.push(`therapy[${i}]`);
+                    continue;
                 }
-                if (typeof drug.amount !== 'number' || drug.amount < 0 || drug.amount > 99) {
-                    error.fields.push(`drugs:${index}:amount`);
+
+                const therapyItemDrugs = therapyItem.drugs;
+
+                if (therapyItemDrugs != undefined) {
+                    if (!Array.isArray(therapyItemDrugs)) {
+                        error.fields.push(`therapy[${i}]`);
+                        continue;
+                    }
+
+                    if (therapyItemDrugs.length > drugNames.length) {
+                        error.fields.push(`therapy[${i}].drugs.length`);
+                        continue;
+                    }
+
+                    for (let j = 0; j < therapyItemDrugs.length; j++) {
+                        const drug = therapyItemDrugs[j];
+
+                        if (typeof drug.id !== 'number')
+                            error.fields.push(`therapy[${i}].drugs[${j}].id`);
+
+                        if (typeof drug.amount !== 'number' || drug.amount < 0 || drug.amount > 99)
+                            error.fields.push(`therapy[${i}].drugs[${j}].amount`);
+                    }
                 }
-            });
+            }
         }
     }
 
@@ -494,9 +529,9 @@ const validPatientInfo = (req, res) => {
         res.status(400).send(error);
         return false;
     }
+
     return true;
 };
-
 
 class PatientsController {
     async addPatient(req, res) {
@@ -506,75 +541,74 @@ class PatientsController {
             req.body.name = req.body.name?.trim().replace(/\s+/g, " ");
             req.body.diagnosis = req.body.diagnosis?.trim().replace(/\s+/g, " ");
             req.body.scheme = req.body.scheme?.trim().replace(/\s+/g, " ");
-            
+
             if (!validPatientInfo(req, res)) return;
-            const { name, birthday, card, scheme, diagnosis, drugs } = req.body;
-            
+            const { name, birthday, card, scheme, diagnosis, therapy } = req.body;
+
             const projectId = req.params.projectId;
 
             Project.findById(projectId).then((project) => {
                 if (!project) // newer reach (beacause projectMiddleware)
-                    return res.status(404).send({error: msgLang.project_not_found });
-                
+                    return res.status(404).send({ error: msgLang.project_not_found });
+
                 const patientIndex = project.patients.findIndex((p) => p.name === name);
                 if (patientIndex != -1) // patient with thjs already exist
-                    return res.status(409).send({error: msgLang.patient_already_exist });
+                    return res.status(409).send({ error: msgLang.patient_already_exist });
 
-                const patient = { name,birthday,card,scheme,diagnosis,drugs };
-                
+                const patient = { name, birthday, card, scheme, diagnosis, therapy };
+
                 project.patients.push(patient);
-                
+
                 project.save().then(() => {
-                    res.status(201).send({ message: msgLang.patient_add_success, project});
+                    res.status(201).send({ message: msgLang.patient_add_success, project });
                 });
             });
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
-    
+
     async editPatient(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
 
         try {
-            if (validPatientInfo(req, res)) {
-                req.body.name = req.body.name?.trim().replace(/\s+/g, " ");
-                req.body.diagnosis = req.body.diagnosis?.trim().replace(/\s+/g, " ");
-                req.body.scheme = req.body.scheme?.trim().replace(/\s+/g, " ");
-            
-                const { name, birthday, card, scheme, diagnosis, drugs } = req.body;
+            if (!validPatientInfo(req, res, false)) return;
+            // req.body.name = req.body.name?.trim().replace(/\s+/g, " ");
+            req.body.diagnosis = req.body.diagnosis?.trim().replace(/\s+/g, " ");
+            req.body.scheme = req.body.scheme?.trim().replace(/\s+/g, " ");
 
-                const projectId = req.params.projectId;
-                const patientId = req.params.patientId;
+            const { name, birthday, card, scheme, diagnosis, therapy } = req.body;
 
-                Project.findById(projectId).then((project) => {
-                    if (!project) // newer reach (beacause projectMiddleware)
-                        return res.status(404).send({error: msgLang.project_not_found });
+            const projectId = req.params.projectId;
+            const patientId = req.params.patientId;
 
-                    const patientIndex = project.patients.findIndex((p) => p.id === patientId);
-                    if (patientIndex == -1)  // newer reach (beacause patientMiddleware)
-                        return res.status(404).send({error: msgLang.patient_not_found });
-                    
-                    const patient = project.patients[patientIndex];
+            Project.findById(projectId).then((project) => {
+                if (!project) // newer reach (beacause projectMiddleware)
+                    return res.status(404).send({ error: msgLang.project_not_found });
 
-                    // Update patient data
-                    patient.name        = name      !== undefined ? name        : patient.name;
-                    patient.birthday    = birthday  !== undefined ? birthday    : patient.birthday;
-                    patient.card        = card      !== undefined ? card        : patient.card;
-                    patient.scheme      = scheme    !== undefined ? scheme      : patient.scheme;
-                    patient.diagnosis   = diagnosis !== undefined ? diagnosis   : patient.diagnosis;
-                    patient.drugs       = drugs     !== undefined ? drugs       : patient.drugs;
-                    
-                    // Save changes to project
-                    project.save().then(() => {
-                        res.status(200).send({ message: msgLang.patient_edit_success, project});
-                    });
+                const patientIndex = project.patients.findIndex((p) => p.id === patientId);
+                if (patientIndex == -1)  // newer reach (beacause patientMiddleware)
+                    return res.status(404).send({ error: msgLang.patient_not_found });
+
+                const patient = project.patients[patientIndex];
+
+                // Update patient data
+                // patient.name        = name      !== undefined ? name        : patient.name;
+                patient.birthday = birthday !== undefined ? birthday : patient.birthday;
+                patient.card = card !== undefined ? card : patient.card;
+                patient.scheme = scheme !== undefined ? scheme : patient.scheme;
+                patient.diagnosis = diagnosis !== undefined ? diagnosis : patient.diagnosis;
+                patient.therapy = therapy !== undefined ? therapy : patient.therapy;
+
+                // Save changes to project
+                project.save().then(() => {
+                    res.status(200).send({ message: msgLang.patient_edit_success, project });
                 });
-            }
+            });
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -590,11 +624,11 @@ class PatientsController {
                 { $pull: { patients: { _id: patientId } } },
                 { new: true }
             );
-        
-            res.status(200).send({ message: msgLang.patient_delete_success, project});
+
+            res.status(200).send({ message: msgLang.patient_delete_success, project });
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -603,7 +637,7 @@ class PatientsController {
 
         try { // CRASH IF INVALID ID
             const userId = new mongoose.Types.ObjectId(req.user.id);
-            const projectId = new mongoose.Types.ObjectId(req.params.projectId);  
+            const projectId = new mongoose.Types.ObjectId(req.params.projectId);
 
             try {
                 // return res.end('aaa');
@@ -612,57 +646,57 @@ class PatientsController {
                 return res.status(404).send({ error: msgLang.project_not_found })
             }
 
-            
+
             const { ex_projectId, ex_patientId } = req.body;
-            
+
             if (ex_projectId == (projectId))
                 return res.status(403).send({ error: msgLang.import_same_project_err });
 
             const exProjectPromise = Project.findById(ex_projectId);
             const imProjectPromise = Project.findById(projectId);
-            
+
             Promise.all([exProjectPromise, imProjectPromise]).then(([ex_project, im_project]) => {
                 if (!ex_project) return res.status(404).send({ error: msgLang.project_not_found })
-                
+
                 if (!ex_project.creator?.equals(userId) && !ex_project.settings.shared_to?.includes(userId))
-                return res.status(403).send({ error: msgLang.project_access_denied });
-                
+                    return res.status(403).send({ error: msgLang.project_access_denied });
+
                 // access reached
                 const exPatientIndex = ex_project.patients.findIndex((p) => p.id === ex_patientId);
                 if (exPatientIndex == -1)
-                    return res.status(404).send({error: msgLang.patient_not_found });
-                
+                    return res.status(404).send({ error: msgLang.patient_not_found });
+
                 const patient1 = ex_project.patients[exPatientIndex];
                 const patient = {
-                    name:       patient1.name,
-                    birthday:   patient1.birthday,
-                    card:       patient1.card,
-                    scheme:     patient1.scheme,
-                    diagnosis:  patient1.diagnosis,
-                    drugs:      patient1.drugs
+                    name: patient1.name,
+                    birthday: patient1.birthday,
+                    card: patient1.card,
+                    scheme: patient1.scheme,
+                    diagnosis: patient1.diagnosis,
+                    therapy: patient1.therapy
                 }
 
                 const imPatientIndex = im_project.patients.findIndex((p) => p.name === patient.name);
                 const patients = im_project.patients;
-                
+
                 if (imPatientIndex == -1) { // not exist
                     patients.push(patient);
-                }else { // exist
+                } else { // exist
                     patients[imPatientIndex] = patient;
                 }
 
                 im_project.patients = patients;
 
                 im_project.save().then(() => {
-                    res.status(200).send({ message: msgLang.patient_import_success, project: im_project});
+                    res.status(200).send({ message: msgLang.patient_import_success, project: im_project });
                 })
             }).catch((error) => {
                 console.log(error);
-                res.status(500).send({error: msgLang.project_not_found});
+                res.status(500).send({ error: msgLang.project_not_found });
             });
         } catch (e) {
             console.log(e);
-            res.status(500).send({error: msgLang.server_error});
+            res.status(500).send({ error: msgLang.server_error });
         }
     }
 
@@ -671,7 +705,7 @@ class PatientsController {
         try {
             const projectId = new mongoose.Types.ObjectId(req.params.projectId);
             const patientId = new mongoose.Types.ObjectId(req.params.patientId);
-    
+
             Project.findById(projectId).then((project) => {
                 const patient = project.patients.find((p) => p._id.equals(patientId));
                 if (!patient) {
