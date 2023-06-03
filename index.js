@@ -39,7 +39,7 @@ app.use('/:lang/api/project', projectRouter);
 app.use('/:lang/api/data', dataRouter);
 app.use((req, res) => res.status(404).send({ error: '404 Not found' }) );
 
-const parseAndronksss = () => {
+/*const parseAndronksss = () => {
 
     const fileDir = `C:/android/AndrOnk/Projects/Full/`;
     fs.readdir(fileDir, (err, files) => {
@@ -55,7 +55,7 @@ const parseAndronksss = () => {
             });
         });
     });
-};
+};*/
 
 const start = async () => {
     try {
@@ -81,7 +81,7 @@ start();
 
 exports.app = functions.https.onRequest(app);
 
-fs.readFile('C:/android/AndrOnk/Projects/Full/Aprel2023.andronk', (err, data) => {
+/*fs.readFile('C:/android/AndrOnk/Projects/Full/Aprel2023.andronk', (err, data) => {
     if (err) return console.log(err);
     
     const today = new Date();
@@ -91,4 +91,4 @@ fs.readFile('C:/android/AndrOnk/Projects/Full/Aprel2023.andronk', (err, data) =>
         .then(wb =>
             wb.write('aaa.xlsx')
         )
-});
+});*/
