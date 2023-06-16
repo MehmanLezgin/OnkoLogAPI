@@ -1,0 +1,302 @@
+PF
+Carboplatin + Fluorurasil
+Taxoter + Cisplatin
+Paklitaxel + Cisplatin
+TPF
+TIP
+PFL
+Paklitaxel + Carboplatin
+TIC
+VP
+Gemsitabin + Cisplatin
+Cisplatin + Onkotron
+Cisplatin + Xeloda
+ACOP
+Cisplatin + Bleolem + Fluorurasil
+Paklitaxel + Gemsitabin
+Cisplatin + Metotreksat + Bleolem
+Adriblastin + Cisplatin
+Deticen + Farmarubicin + Fluorurasil
+Adriblastin + Vinkristin + Bleolem
+Adriblastin + Vinkristin + Cisplatin
+Cisplatin + Fluorurasil + Şüa terapiya
+Irinotekan + Cisplatin
+Paklitaxel + Cisplatin
+DCF
+Irinotekan + Fluorurasil
+Taxoter + Navelbin
+CF
+ECF
+ELF
+PELF
+TC
+DCF
+FAP
+EOX
+FAM
+Irinotekan + Cisplatin
+Irinotekan + Fluorurasil + Ca-folinat
+Fluorurasil + Ca-folinat
+XP
+OFL
+EAP
+MEP
+Gemsitabin + 5FU + Ca-folinat
+TPFt
+Fluorurasil + Ca-folinat
+Fluorurasil + Ca-folinat
+FOLFOX-4
+FOLFOX-6
+FOLFOX-7
+FOLFIRI
+FOLFOXIRI
+Eloxatin + Irinotekan
+IFL
+XELOX
+XELIRI
+MCAP
+CAPOX
+Fluorurasil + Ca-folinat + Avastin
+FOLFOX + Avastin
+IFL + Avastin
+XELOX + Avastin
+FOX
+Fluorurasil + Mitem + Şüa terapiya
+Fluorurasil + Cisplatin
+PIAF
+Adriblastin
+Cisplatin
+Carboplatin
+Fluorurasil + Ca-folinat
+Gemsitabin + Cisplatin
+Gemsitabin + Kapesitabin
+Ca-folinat + Fluorurasil + Cisplatin
+Mitem + Kapesitabin
+Gemsitabin + Eloxatin
+Fluorurasil + Ca-folinat
+Gemsitabin + Cisplatin
+Fluorurasil + Eloxatin
+Gemsitabin + Eloxatin
+Gemsitabin + Kapesitabin
+GTX
+Paklitaxel + Carboplatin
+Vinorelbin + Cisplatin
+Taxoter + Cisplatin
+Taxoter + Carboplatin
+Paklitaxel + Cisplatin
+Paklitaxel + Carboplatin
+Gemsitabin + Cisplatin
+Gemsitabin + Carboplatin
+Gemsitabin + Taxoter
+Gemsitabin + Paklitaxel
+Vinorelbin + Gemsitabin
+Carboplatin + Paklitaxel + Avastin
+EP(a)
+EP(b)
+EP + Taxoter
+Irinotekan + Gemsitabin
+Irinotekan + Adriblastin
+Irinotekan + Cisplatin
+Irinotekan + Vinorelbin
+Etopozid + Cisplatin
+Etopozid + Carboplatin
+Cisplatin + Irinotekan
+Carboplatin + Paklitaxel + Etopozid
+CAV
+CAE
+Gemsitabin + Etopozid
+Irinotekan + Etopozid
+Cisplatin + Etopozid
+Cisplatin + Farmarubicin
+Carboplatin + Irinotekan
+TP
+GP
+CODE
+PAC
+ADOC
+PE
+BV
+ABV
+AD
+Ifolem + Adriblastin
+IMA
+Ifolem + Farmarubicin
+MAID
+CYVADIC
+Gemsitabin + Taxoter
+Ifolem + Etopozid
+Cisplatin + Adriblastin + Ciklofosfan
+Taxoter + Cisplatin
+Ifolem + Etopozid
+A + M + (I + P)
+CAV/IE
+CVD
+Cisplatin + Vinblastin + Bleolem
+Deticen + Lamustin
+Deticen + Interferon a
+Adriblastin + Deticen
+BOLD
+Lamustin + Vinkristin + Cisplatin
+Cisplatin + Adriblastin
+Gemsitabin + Cisplatin
+Gemsitabin + Carboplatin
+CAP
+AC
+EC
+FAC(a)
+FAC(b)
+FEC
+TAC(a)
+TAC(b)
+TC
+AC → T(a)
+AC → T(b)
+AT(a)
+AT(b)
+AT(c)
+A → T → C
+CEF
+CEF
+NFL
+FEC-100
+Kapesitabin + Taxoter
+Kapesitabin + Paklitaxel
+Kapesitabin + Vinorelbin
+MMM
+Taxoter + Adriblastin
+Gemsitabin + Paklitaxel
+Carboplatin + Paklitaxel
+Carboplatin + Taxoter
+Mitem + Vinblastin
+CNF
+Vinorelbin
+AC → T + Herseptin
+Herseptin + Vinorelbin
+CMF(a)
+CMF(b)
+VAM
+CAP  +  CEP
+TeisH
+VC
+Avastin + Paklitaxel
+Xeloda + Avastin
+Xeloda + Lapatinib
+Gemsitabin + Adriblastin
+Gemsitabin + Xeloda
+Gemsitabin + Taxoter
+Gemsitabin + Cisplatin
+Gemsitabin + Vinorelbin
+Gemsitabin + Carboplatin
+Gemsitabin + Eloxatin
+Cisplatin + Şüa terapiya
+Paklitaxel + Cisplatin
+BIP
+BIC
+Cisplatin + Fluorurasil
+Cisplatin + Irinotekan
+Cisplatin + Gemsitabin
+Adriblastin + Bleolem
+Taxoter + Cisplatin
+Cisplatin + Vinorelbin
+Carboplatin + Ifolem
+Paklitaxel + Carboplatin
+Paklitaxel + Farmarubicin + Carboplatin
+TAP
+AC
+AP
+Adriblastin + Paklitaxel
+Cisplatin + Adriblastin + Paklitaxel
+CAP
+Cisplatin + Vinorelbin
+Mitem + Adriblastin + Ciklofosfan
+CC
+CP
+CT
+Carboplatin + Taxoter
+Carboplatin + Paklitaxel
+Gemsitabin + Carboplatin
+Eloxatin + Ciklofosfan
+Ciklofosfan + Adriblastin + Cisplatin
+Ifolem + Uromitexan + Cisplatin
+GP
+VP
+Taxoter + Prednizalon
+Onkotron + Prednizalon
+Qozerelin
+BEP
+EP
+PVB
+VeIP
+VIP
+TIP
+Gemsitabin + Adriblastin
+Fluorurasil + Gemsitabin
+Irinotekan 2a
+Vinblastin
+Cisplatin + Gemsitabin
+Carboplatin + Gemsitabin
+MVAC
+CMV
+ITP
+CISCA
+Paklitaxel + Cisplatin
+Paklitaxel + Carboplatin
+CAP
+Gemsitabin + Eloxatin
+Taxoter + Cisplatin
+CF
+MBP
+GP
+BEP
+PCE
+XELOX
+OXIRI
+PT
+PC
+GI
+CAP
+ABVD
+BEACOPP
+BEACOPP-ESKALAP
+MVC
+EVA
+EVAP
+CBVD
+ABDIC
+GDP
+CEM
+IGEV
+OEPA
+CEVD
+CHOP
+CHOP-B
+CNOP
+COP
+CVP
+CHOEP
+DHAP
+EPIC
+ESHAP
+MINE
+ICE
+IVE
+FC
+FND
+FCM
+ADOX
+m-BACOD
+ASAP
+BAEM
+COP-BLEO
+LABO
+OPEN
+VAD
+CVAD
+PAD
+Bortezomib + Ciklofosfan
+NOP
+Cisplatin + Adriblastin
+Cisplatin + Metotreksat + Bleolem
+Etopozid + Cisplatin
+PF
+CAV

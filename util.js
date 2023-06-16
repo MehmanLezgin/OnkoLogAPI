@@ -13,6 +13,16 @@ const drugNames = fs.readFileSync(createPath('./assets/drugs_names.txt'), 'utf-8
                     .replace(/\r/g, '')
                     .split('\n');
 
+const diagnosis = fs.readFileSync(createPath('./assets/diagnosis.txt'), 'utf-8')
+                    .replace(/\r/g, '')
+                    .split('\n');
+
+const therapySchemes = fs.readFileSync(createPath('./assets/therapy_schemes.txt'), 'utf-8')
+                    .replace(/\r/g, '')
+                    .split('\n');
+
+
+
 const drugNamesExtended = JSON.parse(fs.readFileSync(createPath('./assets/drug_names_extended.json'), 'utf-8'))
 
 const decodeReqToken = (req) => {
@@ -205,6 +215,6 @@ function exportPatientsXLSX(patients = [], withFooter = true, withTitle=true, mo
 }
 
 module.exports = {
-    getlang, drugNames, drugNamesExtended, checkLength, decodeReqToken, isValidEmail, isValidName, isValidUsername,
+    getlang, drugNames, diagnosis, therapySchemes, drugNamesExtended, checkLength, decodeReqToken, isValidEmail, isValidName, isValidUsername,
     exportPatientsXLSX, exportPatientsXLSXAsync
 }

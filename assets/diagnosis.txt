@@ -1,0 +1,89 @@
+Sağ ağ ciyərin cr-i
+Sol ağ ciyərin cr-i
+Sağ süd vəzin cr-i
+Sol süd vəzin cr-i
+Mədənin cr-i
+Mədə girəcəyinin cr-i
+Qırtlağın cr-i
+Prostat vəzin cr-i
+Yumurtalıqların cr-i
+Uşaqlıq boynunun cr-i
+Sağ xayanın cr-i
+Sol xayanın cr-i
+Sağ böyrəyin cr-i
+Sol böyrəyin cr-i
+Hoçkin limfoması
+Qeyri-Hoçkin limfoması
+Kardioezofoqal birləşmənin cr-i
+Kardioezofoqal keçidin cr-i
+Sidik kisəsinin cr-i
+Kardioezofoqal birləşmənin cr-i
+Kardioezofoqal keçidin cr-i
+Mədə cisminin total cr-i
+Sağ baldır nahiyəsinin sinovial sarkoması
+Sol baldır nahiyəsinin sinovial sarkoması
+Düz bağırsağın cr-i
+Cənbər bağırsağın cr-i
+Sağ xayanın seminoması
+Sol xayanın seminoması
+Çox saylı mieloma xəstəliyi
+Dilin sağ yan tərəfinin cr-i
+Dilin sol yan tərəfinin cr-i
+Qida borusunun cr-i
+Sağ və sol bronxların infiltrativ karsinoması
+Sağ göz almasının melanoması
+Sol göz almasının melanoması
+Burun udlağın cr-i
+Sağ döş vəzin cr-i
+Sol döş vəzin cr-i
+Sidik kisəsinin sağ arxa divarının cr-i
+Sidik kisəsinin sol arxa divarının cr-i
+Sağ yanağın selikli qişasının cr-i
+Sol yanağın selikli qişasının cr-i
+Mədə cisminin cr-i
+Qalxan çənbər bağırsağın cr-i
+Enən çənbər bağırsağın cr-i
+S-vari bağırsağın cr-i
+Kor bağırsağın cr-i
+Qırtlaq udlağın cr-i
+Alt dodağın cr-i
+Üst dodağın cr-i
+Dilin cr-i
+Endometriyanın karsinoması
+Bronxların və ağ ciyərlərin cr-i
+Sağ tərəfli bədxassəli mezotelioma
+Sol tərəfli bədxassəli mezotelioma
+Vulvanın bədxassəli yeni törəməsi
+Mədənin antral hissəsinin cr-i
+Beyin kötüyünün cr-i
+Mədəaltı vəzin cr-i
+Sağ bronxun karsinoması
+Sol bronxun karsinoması
+Adenokarsinoma metastazı
+Yoğun bağırsağın cr-i
+Sağ təpə payının beyin daxili şişi
+Sol təpə payının beyin daxili şişi
+Dərinin cr-i
+Fater məməciyinin karsinoması
+Öd kisəsinin cr-i
+Mədənin kiçik əyriliyinin karsinoması
+Düz bağırsağın adenokarsinoması
+Düz bağırsağın karsinoması
+Rektosigmoid birləşmənin cr-i
+Sağ bud nahiyəsinin fibrosarkoması
+Sol bud nahiyəsinin fibrosarkoması
+Böyrəyin karsinoması
+Sol ayağın pəncə nahiyəsinin dərisinin melanoması
+Sağ ayağın pəncə nahiyəsinin dərisinin melanoması
+Böyrəküstü vəzin xərçəngi
+Sidik kisəsinin sağ yan divrının cr-i
+Yumurtalığın adenokarsinoması
+Uşaqlıq boynunun karsinoması
+Üz dərisinin melanoması
+İlkin lokalizasiyası naməlum bədxassəli yeni törəmə
+Xolangiokarsinoma
+Sol yuxarı bronxun karsinoması
+Sağ yuxarı bronxun karsinoması
+Sol yuxarı bronxun cr-i
+Sağ yuxarı bronxun cr-i
+Mədənin adenokarsinomas
