@@ -5,19 +5,17 @@ const mongoose = require('mongoose');
 const functions = require('firebase-functions');
 require('dotenv').config();
 const morgan = require('morgan');
-const path = require('path');
-const fs = require('fs');
-const andronkParser = require('./andronkParser');
+// const path = require('path');
+// const fs = require('fs');
+// const andronkParser = require('./andronkParser');
 const app = express();
-const util = require('./util');
-// const loginMiddleware = require('./middlewares/authMiddleware');
+// const util = require('./util');
 const authRouter = require('./routers/authRouter');
 const dataRouter = require('./routers/dataRouter');
 const projectRouter = require('./routers/projectRouter');
 
 const PORT = process.env.PORT;
-// const Project = require('./models/project');
-// const User = require('./models/user');
+
 const limiter = rateLimit({
     windowMs: 10 * 1000, 
     max: 30, // limit each IP to 100 requests per windowMs

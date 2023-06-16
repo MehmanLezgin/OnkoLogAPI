@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const msg = require('../messages');
+const msg = require('../messages/messages');
 const {getlang} = require('../util');
 
 module.exports = function(req, res, next) {

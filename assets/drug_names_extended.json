@@ -1,0 +1,172 @@
+[
+    {
+        "shortname": "Adriblastin-50",
+        "fullname": "Adriblastin 50 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Adriblastin-10",
+        "fullname": "Adriblastin 10 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Ciklofosfan",
+        "fullname": "Ciklofosfan 0.2 gr",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Fluorurasil",
+        "fullname": "5-Fluorourasil 500 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Carboplatin-150",
+        "fullname": "Carboplatin 150 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Carboplatin-450",
+        "fullname": "Carboplatin 450 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Taxoter-80",
+        "fullname": "Taxoter 80 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Cetron",
+        "fullname": "Cetron №5",
+        "unit": "amp"
+    },
+    {
+        "shortname": "Zoledron",
+        "fullname": "Zoledronat 0.5 ml",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Farmarubicin-50",
+        "fullname": "Farmarubicin 50 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Emtexat",
+        "fullname": "Emtexat 50 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Ca-folinat-50",
+        "fullname": "Calsium-folinat 50 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Taxoter-20",
+        "fullname": "Taxoter 20 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Paklitaxel-30",
+        "fullname": "Paklitaksel 30 mg 5 ml",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Etopozid",
+        "fullname": "Etopozid 100 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Gemsitabin-200",
+        "fullname": "Gemsitabin 200mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Cisplatin",
+        "fullname": "Cisplatin 50 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Navelbin-10",
+        "fullname": "Navelbin 10 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Eloxatin-50",
+        "fullname": "Eloxatin 50 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Gemsitabin-1000",
+        "fullname": "Gemsitabin 1000 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Ftorafur",
+        "fullname": "Ftorafur 400 mg",
+        "unit": "box"
+    },
+    {
+        "shortname": "Farmarubicin-10",
+        "fullname": "Farmarubicin 10 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Irinotekan",
+        "fullname": "İrinotekan 100 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Eloxatin-100",
+        "fullname": "Eloxatin 100 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Vinkristin",
+        "fullname": "Vinkristin 1 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Onkotron",
+        "fullname": "Onkotron 20 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Mitem",
+        "fullname": "Mitem 20 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Uromitexan",
+        "fullname": "Uromitexan 400 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Bleolem",
+        "fullname": "Bleolem 15 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Ifolem",
+        "fullname": "İfolem 1000 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Neupogen",
+        "fullname": "Neupogen 0.5 ml",
+        "unit": "syringe"
+    },
+    {
+        "shortname": "Deticen",
+        "fullname": "Deticen 200 mg",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Paklitaxel-100",
+        "fullname": "Paklitaksel 100 mg 17 ml",
+        "unit": "fl"
+    },
+    {
+        "shortname": "Vinblastin-10",
+        "fullname": "Vinblasti 10 mg",
+        "unit": "fl"
+    }
+]

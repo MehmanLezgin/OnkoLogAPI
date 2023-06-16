@@ -1,7 +1,7 @@
 const Project = require('../models/project');
 const User = require('../models/user');
 const mongoose = require('mongoose');
-const msg = require('../messages');
+const msg = require('../messages/messages');
 const {getlang} = require('../util');
 
 module.exports = function(req, res, next) {

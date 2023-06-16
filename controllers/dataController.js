@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const { getlang } = require('../util');
-const { drugNames } = require('../util');
-const msg = require('../messages');
+const { drugNames, drugNamesExtended } = require('../util');
+const msg = require('../messages/messages');
 const User = require('../models/user');
 
 const profileImgDir = "./user_data/profile/";
@@ -11,6 +11,10 @@ const defaultProfileImgDir = "./assets/default_profile.jpg";
 class DataController {
     async drugnames(req, res) {
         res.status(200).send(drugNames);
+    }
+
+    async drugnamesExtended(req, res) {
+        res.status(200).send(drugNamesExtended);
     }
 
     async myInfo(req, res) {

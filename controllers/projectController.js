@@ -1,6 +1,6 @@
 const Project = require('../models/project');
 const User = require('../models/user');
-const msg = require('../messages')
+const msg = require('../messages/messages')
 const { getlang, checkLength, isValidName, drugNames, exportPatientsXLSXAsync } = require('../util');
 const settings = require('../settings');
 const mongoose = require('mongoose');
@@ -478,8 +478,9 @@ const validPatientInfo = (req, res, nameRequired = true) => {
     if (scheme != undefined && (typeof scheme !== 'string' || scheme.length > settings.SCHEME_MAX_LEN)) {
         error.fields.push('scheme');
     }
+    // TODO: SCHEME_MAX_LEN and DIAGNOSIS_MAX_LEN aren't defined
 
-    if (diagnosis != undefined && (!diagnosis || typeof diagnosis !== 'string' || diagnosis.length > settings.DIAGNOSIS_MAX_LEN)) {
+    if (diagnosis != undefined && (typeof diagnosis !== 'string' || diagnosis.length > settings.DIAGNOSIS_MAX_LEN)) {
         error.fields.push('diagnosis');
     }
 

@@ -1,6 +1,6 @@
 const Project = require('../models/project');
 const mongoose = require('mongoose');
-const msg = require('../messages');
+const msg = require('../messages/messages');
 const {getlang} = require('../util');
 
 module.exports = function(req, res, next) {

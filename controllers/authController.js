@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-const msg = require('../messages');
+const msg = require('../messages/messages');
 const settings = require('../settings');
 const {getlang, checkLength, isValidEmail, isValidName, isValidUsername} = require('../util');
 // import { lang } from './util';

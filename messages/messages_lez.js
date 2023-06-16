@@ -1,6 +1,6 @@
-const settings = require('./settings');
+const settings = require('../settings');
 
-const messages_lez = {
+module.exports = {
     error_occured: 'ГъалатI хьана',
     server_error: 'сервердин гъалатI',
     err404: '404 Ччин жагъанач',
@@ -58,5 +58,4 @@ const messages_lez = {
     remainder_import_success: 'Остаток успешно импортирован',
     import_same_project_err: 'Нельзя импортировать в тот же самый проект',
     edits_saved: 'Изменения сохранены'
-}
-module.exports = messages_lez;
+};
