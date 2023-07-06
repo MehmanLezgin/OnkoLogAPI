@@ -10,7 +10,9 @@ const settings = {
 
     PROJECT_NAME_MIN_LEN:   3,
     PROJECT_NAME_MAX_LEN:   32,
-    CARD_MAX_LEN: 12
+    CARD_MAX_LEN: 12,
+    SCHEME_MAX_LEN: 10,
+    DIAGNOSIS_MAX_LEN: 100
 };
 
 module.exports = settings;

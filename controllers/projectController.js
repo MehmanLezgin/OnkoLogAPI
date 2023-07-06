@@ -595,7 +595,7 @@ class PatientsController {
                 const patient = project.patients[patientIndex];
 
                 // Update patient data
-                // patient.name        = name      !== undefined ? name        : patient.name;
+                patient.name        = name      !== undefined ? name        : patient.name;
                 patient.birthday = birthday !== undefined ? birthday : patient.birthday;
                 patient.card = card !== undefined ? card : patient.card;
                 patient.scheme = scheme !== undefined ? scheme : patient.scheme;
