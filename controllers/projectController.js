@@ -11,13 +11,8 @@ const cleanUpTherapy = (therapy) => {
     let i = 0;
     while (i < therapy.length) {
         const therapyItem = therapy[i];
-        if (therapyItem.drugs.length == 0) {
-            therapy.splice(i, 1);
-            continue;
-        }
-
+        
         let j = 0
-        console.log(therapyItem);
         while (j < therapyItem.drugs.length) {
             const drug = therapyItem.drugs[j]
             if (drug.amount < 1) {
@@ -25,6 +20,11 @@ const cleanUpTherapy = (therapy) => {
                 continue
             }
             j++
+        }
+
+        if (therapyItem.drugs.length == 0) {
+            therapy.splice(i, 1);
+            continue;
         }
         i++
     }
