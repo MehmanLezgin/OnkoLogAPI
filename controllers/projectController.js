@@ -6,25 +6,29 @@ const settings = require('../settings');
 const mongoose = require('mongoose');
 
 const cleanUpTherapy = (therapy) => {
+    console.log(therapy);
+    if (!therapy) return []
     let i = 0;
     while (i < therapy.length) {
         const therapyItem = therapy[i];
         if (therapyItem.drugs.length == 0) {
-            therapy.splise(i, 1);
+            therapy.splice(i, 1);
             continue;
         }
 
         let j = 0
+        console.log(therapyItem);
         while (j < therapyItem.drugs.length) {
             const drug = therapyItem.drugs[j]
             if (drug.amount < 1) {
-                therapyItem.drugs.splise(j, 1)
+                therapyItem.drugs.splice(j, 1)
                 continue
             }
             j++
         }
         i++
     }
+    return therapy
 }
 
 const toObjectIdSafe = (res, id, message, errCode = 404) => {

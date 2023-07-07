@@ -48,6 +48,7 @@ Fluorurasil + Ca-folinat
 FOLFOX-4
 FOLFOX-6
 FOLFOX-7
+FLOT
 FOLFIRI
 FOLFOXIRI
 Eloxatin + Irinotekan

@@ -6,3 +6,4 @@ app3.js
 # user_data
 *.xls
 *.xlsx
+diag_cleaner.js
