@@ -4,7 +4,28 @@ const msg = require('../messages/messages')
 const { getlang, checkLength, isValidName, drugNames, exportPatientsXLSXAsync } = require('../util');
 const settings = require('../settings');
 const mongoose = require('mongoose');
-const XLSX = require('excel4node');
+
+const cleanUpTherapy = (therapy) => {
+    let i = 0;
+    while (i < therapy.length) {
+        const therapyItem = therapy[i];
+        if (therapyItem.drugs.length == 0) {
+            therapy.splise(i, 1);
+            continue;
+        }
+
+        let j = 0
+        while (j < therapyItem.drugs.length) {
+            const drug = therapyItem.drugs[j]
+            if (drug.amount < 1) {
+                therapyItem.drugs.splise(j, 1)
+                continue
+            }
+            j++
+        }
+        i++
+    }
+}
 
 const toObjectIdSafe = (res, id, message, errCode = 404) => {
     try {
@@ -21,20 +42,20 @@ const calcUsedDrugs = (patients) => {
 
     for (let j = 0; j < patients.length; j++) {
         const patient = patients[j];
-    
+
         if (!Array.isArray(patient.therapy)) continue;
-        
+
         for (let j = 0; j < patient.therapy.length; j++) {
             const therapyItem = patient.therapy[j];
-            
+
             if (!Array.isArray(therapyItem.drugs)) continue;
-            
+
             for (let k = 0; k < therapyItem.drugs.length; k++) {
                 const drug = therapyItem.drugs[k];
-                
+
                 if (typeof drug.id != 'number' || typeof drug.amount != 'number')
-                   return;
-                
+                    return;
+
                 usedDrugs[drug.id] ??= 0;
                 usedDrugs[drug.id] += drug.amount;
             }
@@ -556,7 +577,8 @@ class PatientsController {
                 if (patientIndex != -1) // patient with thjs already exist
                     return res.status(409).send({ error: msgLang.patient_already_exist });
 
-                const patient = { name, birthday, card, scheme, diagnosis, therapy };
+
+                const patient = { name, birthday, card, scheme, diagnosis, therapy: cleanUpTherapy(therapy) };
 
                 project.patients.push(patient);
 
@@ -595,12 +617,12 @@ class PatientsController {
                 const patient = project.patients[patientIndex];
 
                 // Update patient data
-                patient.name        = name      !== undefined ? name        : patient.name;
+                patient.name = name !== undefined ? name : patient.name;
                 patient.birthday = birthday !== undefined ? birthday : patient.birthday;
                 patient.card = card !== undefined ? card : patient.card;
                 patient.scheme = scheme !== undefined ? scheme : patient.scheme;
                 patient.diagnosis = diagnosis !== undefined ? diagnosis : patient.diagnosis;
-                patient.therapy = therapy !== undefined ? therapy : patient.therapy;
+                patient.therapy = cleanUpTherapy(therapy !== undefined ? therapy : patient.therapy);
 
                 // Save changes to project
                 project.save().then(() => {
@@ -626,7 +648,7 @@ class PatientsController {
                 { new: true }
             );
 
-            res.status(200).send({ message: msgLang.patient_delete_success, project });
+            res.status(200).send(project.patients);
         } catch (e) {
             console.log(e);
             res.status(500).send({ error: msgLang.server_error });
@@ -639,13 +661,6 @@ class PatientsController {
         try { // CRASH IF INVALID ID
             const userId = new mongoose.Types.ObjectId(req.user.id);
             const projectId = new mongoose.Types.ObjectId(req.params.projectId);
-
-            try {
-                // return res.end('aaa');
-
-            } catch (e1) {
-                return res.status(404).send({ error: msgLang.project_not_found })
-            }
 
 
             const { ex_projectId, ex_patientId } = req.body;
