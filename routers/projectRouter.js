@@ -11,6 +11,7 @@ const patientsCont = new PatientsController();
 
 router.get(         '/my',                                      authMW,             projectCont.myProjectsInfo);
 router.get(         '/shared',                                  authMW,             projectCont.sharedProjectsInfo);
+router.get(         '/all',                                     authMW,             projectCont.allProjectsInfo);
 router.get(         '/:projectId',                              authMW, projectMW,  projectCont.getProject);
 router.delete(      '/:projectId/:project_name',                authMW, projectMW,  projectCont.deleteProject);
 router.post(        '/create',                                  authMW,             projectCont.createProject)

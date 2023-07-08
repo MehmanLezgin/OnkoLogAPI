@@ -154,27 +154,6 @@ class ProjectController {
         }
     }
 
-    /*async sharedProjectsInfo(req, res) {
-        const msgLang = msg[getlang(req.params.lang)];
-        try {
-            const userId = new mongoose.Types.ObjectId(req.user.id)
-            const projects = await Project.find({ 'settings.shared_to': { $elemMatch: { $eq: userId } } });
-            
-            const projectNames = projects.map(project => ({
-                _id: project._id,
-                name: project.name,
-                patientsAmount: project.patients.length,
-                creator: project.creator,
-                createdAt: project.createdAt,
-                editedAt: project.editedAt
-            }));
-            res.status(200).send(projectNames);
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send({error: msgLang.server_error});
-        }
-    }*/
-
     async sharedProjectsInfo(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
         try {
@@ -203,6 +182,63 @@ class ProjectController {
         }
     }
 
+    async allProjectsInfo(req, res) {
+        const msgLang = msg[getlang(req.params.lang)];
+        try {
+            const userId = new mongoose.Types.ObjectId(req.user.id);
+    
+            // Fetch user's projects
+            const myProjects = await Project.find({ creator: userId });
+            const myProjectInfoList = [];
+    
+            for (const project of myProjects) {
+                const sharedToIds = project.settings.shared_to;
+                const sharedToUsers = await User.find(
+                    { _id: { $in: sharedToIds } },
+                    { _id: 1, username: 1 }
+                );
+                const sharedToUsernames = sharedToUsers.map(user => ({
+                    _id: user._id,
+                    username: user.username
+                }));
+    
+                myProjectInfoList.push({
+                    name: project.name,
+                    _id: project._id,
+                    patientsAmount: project.patients.length,
+                    shared_to: sharedToUsernames,
+                    createdAt: project.createdAt,
+                    editedAt: project.editedAt
+                });
+            }
+    
+            // Fetch shared projects
+            const sharedProjects = await Project.find({ 'settings.shared_to': { $elemMatch: { $eq: userId } } });
+            const sharedProjectInfoList = [];
+    
+            for (const project of sharedProjects) {
+                const creator = await User.findById(project.creator);
+                sharedProjectInfoList.push({
+                    _id: project._id,
+                    name: project.name,
+                    patientsAmount: project.patients.length,
+                    creator: {
+                        _id: creator?._id,
+                        username: creator?.username
+                    },
+                    createdAt: project.createdAt,
+                    editedAt: project.editedAt
+                });
+            }
+    
+            const allProjectInfoList = [...myProjectInfoList, ...sharedProjectInfoList];
+            res.status(200).send(allProjectInfoList);
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({ error: msgLang.server_error });
+        }
+    }
+    
 
     async getProject(req, res) {
         const msgLang = msg[getlang(req.params.lang)];
